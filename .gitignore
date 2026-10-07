@@ -1,0 +1,54 @@
+# ---------- 依赖与构建产物 ----------
+node_modules
+dist
+dist-ssr
+build
+*.local
+.vite
+coverage
+
+# ---------- 环境变量 ----------
+# 真实密钥只放 .env.local，任何 .env 变体都不提交
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# ---------- 运行时数据 ----------
+# 后端数据文件由 backend/data/seed/*.seed.json 在首次启动时自动生成，
+# 只有 seed 目录是人工维护的，其余为运行时产物
+backend/data/*.json
+!backend/data/seed/**
+backend/data/*.tmp
+
+# SQLite 数据库及其预写日志（会话级产物，含 WAL/SHM 临时文件）
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+
+# 通用持久化中间态（原子写临时文件）
+*.tmp
+
+# ---------- WorkBuddy 批量运行产物 ----------
+# 该目录为账号批量运行的工作区，accts/ 与 wb_login.json 内含真实
+# access_token / refresh_token，logs/ 与 decrypt.log 亦然，故整体排除
+wb_run/
+
+# ---------- 会话 / 测试产物 ----------
+# 浏览器自动化截图、附带图片、开发期日志与截图
+.artifacts/
+.attachments/
+.dev-logs/
+
+# ---------- 编辑器 / 系统 / 日志 ----------
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.idea/
+.vscode/*
+!.vscode/extensions.json
