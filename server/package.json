@@ -1,0 +1,22 @@
+{
+  "name": "community-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "社区网站后端 REST API（Express + better-sqlite3 + bcrypt + JWT）",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "seed": "node src/db/seed.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^11.3.0",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2"
+  }
+}
