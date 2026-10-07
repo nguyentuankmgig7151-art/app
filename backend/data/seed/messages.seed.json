@@ -1,0 +1,10 @@
+[
+  {
+    "id": "seed-msg-1",
+    "destinationId": "seed-kyoto",
+    "author": "小林",
+    "content": "祇园的黄昏太美了，值得再去一次。",
+    "rating": 5,
+    "createdAt": "2024-02-01T10:00:00.000Z"
+  }
+]
