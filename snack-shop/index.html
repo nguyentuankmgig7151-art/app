@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>零食铺子 · 好吃停不下来</title>
+  <meta name="description" content="零食铺子 —— 暖橙奶油风零食电商，薯片、饼干、糖果、坚果、饮料、进口零食一站购齐。">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="home">
+
+  <!-- 顶部导航：Logo + 搜索框 + 购物车入口（带数量角标） -->
+  <header class="site-header">
+    <div class="container nav">
+      <a class="nav-logo" href="index.html" aria-label="零食铺子首页">
+        <span class="emoji" aria-hidden="true">🍿</span>
+        <span class="logo-text">零食铺子</span>
+      </a>
+
+      <form class="nav-search" id="nav-search-form" action="products.html" method="get" role="search">
+        <label for="nav-search-input" hidden>搜索零食</label>
+        <input type="search" id="nav-search-input" name="q"
+               placeholder="搜索零食，如「薯片」「巧克力」" autocomplete="off">
+        <button class="btn btn-primary" type="submit">搜索</button>
+      </form>
+
+      <nav class="nav-links" aria-label="主导航">
+        <a class="nav-link" href="index.html" aria-current="page">首页</a>
+        <a class="nav-link" href="products.html">商品</a>
+        <a class="nav-link cart-link" href="cart.html">
+          <span aria-hidden="true">🛒</span>
+          <span>购物车</span>
+          <span class="cart-badge" id="cart-badge" hidden>0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero 横幅 -->
+    <section class="container">
+      <div class="hero">
+        <div class="hero-inner">
+          <span class="hero-tag">限时尝鲜 · 全场包邮</span>
+          <h1>今天也要好好吃零食 🍬</h1>
+          <p>精选 14 款人气零食，暖橙奶油风味的小确幸。现切薯片、进口巧克力、每日坚果，一键加购送到家。</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="products.html">立即选购</a>
+            <a class="btn btn-secondary" href="products.html?category=进口">逛逛进口专区</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 分类快捷入口 -->
+    <section class="container section">
+      <div class="section-title">
+        <h2>按分类逛</h2>
+        <a class="section-link" href="products.html">全部商品 →</a>
+      </div>
+      <div class="category-grid" id="category-grid" aria-label="商品分类"></div>
+    </section>
+
+    <!-- 热门推荐商品网格（由 js 渲染） -->
+    <section class="container section">
+      <div class="section-title">
+        <h2>🔥 热门推荐</h2>
+        <a class="section-link" href="products.html">查看全部 →</a>
+      </div>
+      <div class="product-grid" id="product-grid" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3>🍿 零食铺子</h3>
+          <p>暖橙奶油风零食小店，只做让人开心的那一口。全场零食产地直采，新鲜看得见。</p>
+        </div>
+        <div>
+          <h3>逛一逛</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="products.html">全部商品</a></li>
+            <li><a href="cart.html">购物车</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>联系我们</h3>
+          <ul class="footer-links">
+            <li><a href="mailto:hello@example.com">hello@example.com</a></li>
+            <li>客服时间 09:00–21:00</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2024 零食铺子 · 静态演示站点，仅供学习使用</div>
+    </div>
+  </footer>
+
+  <!-- Toast 容器 -->
+  <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- 脚本：data → cart（统一加购实现，带库存封顶） → main（渲染与交互） -->
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

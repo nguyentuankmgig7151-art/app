@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>购物车 · 零食铺子</title>
+  <meta name="description" content="零食铺子购物车，数量增减、单项删除、清空与合计金额一目了然。">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="cart">
+
+  <!-- 顶部导航 -->
+  <header class="site-header">
+    <div class="container nav">
+      <a class="nav-logo" href="index.html" aria-label="零食铺子首页">
+        <span class="emoji" aria-hidden="true">🍿</span>
+        <span class="logo-text">零食铺子</span>
+      </a>
+
+      <form class="nav-search" id="nav-search-form" action="products.html" method="get" role="search">
+        <label for="nav-search-input" hidden>搜索零食</label>
+        <input type="search" id="nav-search-input" name="q"
+               placeholder="搜索零食，如「薯片」「巧克力」" autocomplete="off">
+        <button class="btn btn-primary" type="submit">搜索</button>
+      </form>
+
+      <nav class="nav-links" aria-label="主导航">
+        <a class="nav-link" href="index.html">首页</a>
+        <a class="nav-link" href="products.html">商品</a>
+        <a class="nav-link cart-link" href="cart.html" aria-current="page">
+          <span aria-hidden="true">🛒</span>
+          <span>购物车</span>
+          <span class="cart-badge" id="cart-badge" hidden>0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="page-head">
+        <h1>我的购物车</h1>
+        <p class="page-sub">数量增减、删除与合计实时更新，数据保存在本地浏览器</p>
+      </div>
+
+      <div class="cart-layout">
+        <!-- 明细列表由 js/cart.js 渲染 -->
+        <section class="cart-list" id="cart-list" aria-live="polite"></section>
+
+        <!-- 订单摘要 -->
+        <aside class="cart-summary" id="cart-summary">
+          <h2>订单摘要</h2>
+          <div class="cart-summary-row">
+            <span>商品件数</span>
+            <span id="cart-total-count">0</span>
+          </div>
+          <div class="cart-total-row">
+            <span>合计金额</span>
+            <span class="cart-total" id="cart-total"><span class="unit">¥</span>0.00</span>
+          </div>
+          <button class="btn btn-primary" type="button" id="checkout-btn">去结算</button>
+          <button class="btn btn-secondary" type="button" id="clear-cart">清空购物车</button>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3>🍿 零食铺子</h3>
+          <p>暖橙奶油风零食小店，只做让人开心的那一口。全场零食产地直采，新鲜看得见。</p>
+        </div>
+        <div>
+          <h3>逛一逛</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="products.html">全部商品</a></li>
+            <li><a href="cart.html">购物车</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>联系我们</h3>
+          <ul class="footer-links">
+            <li><a href="mailto:hello@example.com">hello@example.com</a></li>
+            <li>客服时间 09:00–21:00</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2024 零食铺子 · 静态演示站点，仅供学习使用</div>
+    </div>
+  </footer>
+
+  <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- 脚本：data → cart（模块 + 购物车页） → main（公共角标/Toast） -->
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
