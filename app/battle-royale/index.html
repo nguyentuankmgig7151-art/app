@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>绝地双雄 · 第一人称吃鸡对战</title>
+  <link rel="icon" href="data:," />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- 3D 渲染画布（双人分屏，单画布左右视口） -->
+    <canvas id="game-canvas"></canvas>
+
+    <!-- 分屏中缝 -->
+    <div class="divider" id="divider"></div>
+
+    <!-- 玩家 1 抬头显示 -->
+    <section class="hud hud-left" id="hud-left">
+      <header class="hud__head">
+        <span class="hud__name" style="color:#4da3ff">玩家 1</span>
+        <span class="hud__kills"><i>击杀</i><b id="kills-1">0</b></span>
+      </header>
+      <div class="bar"><div class="bar__fill" id="hp-bar-1"></div><span class="bar__text" id="hp-text-1">100</span></div>
+      <footer class="hud__foot">
+        <span class="weapon" id="weapon-1">空手</span>
+        <span class="ammo" id="ammo-1">-</span>
+      </footer>
+    </section>
+
+    <!-- 玩家 2 抬头显示 -->
+    <section class="hud hud-right" id="hud-right">
+      <header class="hud__head">
+        <span class="hud__name" style="color:#ff6b57">玩家 2</span>
+        <span class="hud__kills"><i>击杀</i><b id="kills-2">0</b></span>
+      </header>
+      <div class="bar"><div class="bar__fill" id="hp-bar-2"></div><span class="bar__text" id="hp-text-2">100</span></div>
+      <footer class="hud__foot">
+        <span class="weapon" id="weapon-2">空手</span>
+        <span class="ammo" id="ammo-2">-</span>
+      </footer>
+    </section>
+
+    <!-- 准星 -->
+    <div class="crosshair crosshair-left" id="crosshair-1">
+      <i class="ch ch-t"></i><i class="ch ch-b"></i><i class="ch ch-l"></i><i class="ch ch-r"></i>
+      <i class="ch ch-dot"></i>
+    </div>
+    <div class="crosshair crosshair-right" id="crosshair-2">
+      <i class="ch ch-t"></i><i class="ch ch-b"></i><i class="ch ch-l"></i><i class="ch ch-r"></i>
+      <i class="ch ch-dot"></i>
+    </div>
+
+    <!-- 受击 / 命中提示 -->
+    <div class="flash" id="hurt-1"></div>
+    <div class="flash" id="hurt-2"></div>
+
+    <!-- 雷达（小地图） -->
+    <canvas class="radar radar-left" id="radar-1" width="120" height="120"></canvas>
+    <canvas class="radar radar-right" id="radar-2" width="120" height="120"></canvas>
+
+    <!-- 击杀播报 -->
+    <div class="killfeed" id="killfeed"></div>
+
+    <!-- 开始 / 结算界面 -->
+    <div class="overlay" id="overlay">
+      <div class="overlay__card">
+        <h1 class="overlay__title">绝地双雄</h1>
+        <p class="overlay__sub">本地双人 · 第一人称射击 · 最后存活者获胜</p>
+
+        <div class="controls">
+          <div class="controls__col" style="--accent:#4da3ff">
+            <h2>玩家 1</h2>
+            <ul>
+              <li><kbd>W</kbd><kbd>S</kbd> 前进 / 后退</li>
+              <li><kbd>A</kbd><kbd>D</kbd> 左转 / 右转</li>
+              <li><kbd>Shift</kbd> 冲刺</li>
+              <li class="auto">自动射击</li>
+            </ul>
+          </div>
+          <div class="controls__col" style="--accent:#ff6b57">
+            <h2>玩家 2</h2>
+            <ul>
+              <li><kbd>↑</kbd><kbd>↓</kbd> 前进 / 后退</li>
+              <li><kbd>←</kbd><kbd>→</kbd> 左转 / 右转</li>
+              <li><kbd>Ctrl</kbd> 冲刺</li>
+              <li class="auto">自动射击</li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="overlay__tip">场上散落 4 种武器（手枪 / 步枪 / 霰弹枪 / 狙击枪）与医疗包，跑过去即可拾取。准星套住对手且进入射程时自动开火，武器用尽会自动丢弃并恢复空手。</p>
+
+        <button class="btn" id="btn-start">开始对战</button>
+        <p class="overlay__hint"><kbd>R</kbd> 重新开始 · <kbd>Esc</kbd> 暂停</p>
+      </div>
+    </div>
+
+    <!-- 暂停界面 -->
+    <div class="overlay overlay--hidden" id="pause-overlay">
+      <div class="overlay__card">
+        <h2 class="overlay__title" style="font-size:34px">已暂停</h2>
+        <button class="btn" id="btn-resume">继续对战</button>
+        <p class="overlay__hint"><kbd>Esc</kbd> 继续</p>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/game.js"></script>
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2024 个人年终总结 | 我的成长报告</title>
+  <meta name="description" content="个人年终总结：数据概览、能力雷达、月度时间轴与年度目标。" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236d5efc'/%3E%3Cstop offset='1' stop-color='%23ff5f8f'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='26' fill='url(%23g)'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- 背景光斑：营造活力渐变氛围 -->
+  <div class="aurora" aria-hidden="true">
+    <span class="aurora__blob aurora__blob--one"></span>
+    <span class="aurora__blob aurora__blob--two"></span>
+    <span class="aurora__blob aurora__blob--three"></span>
+  </div>
+
+  <header class="topbar">
+    <div class="topbar__inner">
+      <a class="brand" href="#hero">
+        <span class="brand__dot"></span>
+        <span class="brand__text">年终总结 · 2024</span>
+      </a>
+      <nav class="topbar__nav" aria-label="章节导航">
+        <a href="#overview">数据</a>
+        <a href="#skills">能力</a>
+        <a href="#timeline">时间轴</a>
+        <a href="#projects">项目</a>
+        <a href="#growth">成长</a>
+        <a href="#goals">目标</a>
+      </nav>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深色模式" aria-pressed="false">
+        <span class="theme-toggle__icon theme-toggle__icon--sun">☀</span>
+        <span class="theme-toggle__icon theme-toggle__icon--moon">☾</span>
+      </button>
+    </div>
+    <div class="scroll-progress" id="scrollProgress"></div>
+  </header>
+
+  <main>
+    <!-- ========== Hero ========== -->
+    <section class="hero" id="hero">
+      <div class="container">
+        <p class="hero__eyebrow reveal">2024 年度个人成长报告</p>
+        <h1 class="hero__title reveal">
+          把一年的努力，<br />
+          变成<span class="text-gradient">看得见</span>的成长
+        </h1>
+        <p class="hero__subtitle reveal">
+          这一年，我完成了 32 项关键任务，输出了 18 篇技术文档，
+          在 6 个项目中承担核心角色。下面是我的一年。
+        </p>
+        <div class="hero__actions reveal">
+          <a class="btn btn--primary" href="#overview">查看我的年度数据</a>
+          <button class="btn btn--ghost" id="printBtn" type="button">导出 / 打印 PDF</button>
+        </div>
+        <dl class="hero__meta reveal">
+          <div>
+            <dt>汇报人</dt>
+            <dd>李 明</dd>
+          </div>
+          <div>
+            <dt>岗位</dt>
+            <dd>高级前端工程师</dd>
+          </div>
+          <div>
+            <dt>汇报周期</dt>
+            <dd>2024.01 — 2024.12</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ========== 数据概览 ========== -->
+    <section class="section" id="overview">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="section__index">01</span>
+          <h2 class="section__title">年度数据概览</h2>
+          <p class="section__desc">用数字回顾这一年的投入与产出。</p>
+        </header>
+
+        <div class="stat-grid">
+          <article class="stat-card reveal" data-accent="violet">
+            <p class="stat-card__label">完成任务</p>
+            <p class="stat-card__value"><span class="counter" data-target="32">0</span><span class="unit">项</span></p>
+            <p class="stat-card__foot">目标 28 项 · 完成率 114%</p>
+          </article>
+          <article class="stat-card reveal" data-accent="pink">
+            <p class="stat-card__label">交付项目</p>
+            <p class="stat-card__value"><span class="counter" data-target="6">0</span><span class="unit">个</span></p>
+            <p class="stat-card__foot">其中 2 个为独立主导</p>
+          </article>
+          <article class="stat-card reveal" data-accent="orange">
+            <p class="stat-card__label">技术文档</p>
+            <p class="stat-card__value"><span class="counter" data-target="18">0</span><span class="unit">篇</span></p>
+            <p class="stat-card__foot">累计阅读 4.2 万次</p>
+          </article>
+          <article class="stat-card reveal" data-accent="teal">
+            <p class="stat-card__label">线上故障</p>
+            <p class="stat-card__value"><span class="counter" data-target="0">0</span><span class="unit">次</span></p>
+            <p class="stat-card__foot">核心服务全年零 P0</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 能力雷达 ========== -->
+    <section class="section" id="skills">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="section__index">02</span>
+          <h2 class="section__title">能力坐标</h2>
+          <p class="section__desc">对比年初与年末，六个维度的自我评估。</p>
+        </header>
+
+        <div class="skill-layout">
+          <figure class="chart-card reveal">
+            <div class="chart-card__canvas" id="radarChart" role="img" aria-label="能力雷达图：工程能力 88 分，架构设计 76 分，团队协作 84 分，业务理解 80 分，沟通表达 72 分，自我驱动 90 分"></div>
+            <figcaption class="chart-card__legend">
+              <span class="legend-item"><i class="legend-dot legend-dot--now"></i>年末</span>
+              <span class="legend-item"><i class="legend-dot legend-dot--before"></i>年初</span>
+            </figcaption>
+          </figure>
+
+          <div class="skill-bars">
+            <div class="skill-bar reveal" data-value="88">
+              <div class="skill-bar__head"><span>工程能力</span><span class="skill-bar__num">88</span></div>
+              <div class="skill-bar__track"><div class="skill-bar__fill"></div></div>
+            </div>
+            <div class="skill-bar reveal" data-value="76">
+              <div class="skill-bar__head"><span>架构设计</span><span class="skill-bar__num">76</span></div>
+              <div class="skill-bar__track"><div class="skill-bar__fill"></div></div>
+            </div>
+            <div class="skill-bar reveal" data-value="84">
+              <div class="skill-bar__head"><span>团队协作</span><span class="skill-bar__num">84</span></div>
+              <div class="skill-bar__track"><div class="skill-bar__fill"></div></div>
+            </div>
+            <div class="skill-bar reveal" data-value="80">
+              <div class="skill-bar__head"><span>业务理解</span><span class="skill-bar__num">80</span></div>
+              <div class="skill-bar__track"><div class="skill-bar__fill"></div></div>
+            </div>
+            <div class="skill-bar reveal" data-value="72">
+              <div class="skill-bar__head"><span>沟通表达</span><span class="skill-bar__num">72</span></div>
+              <div class="skill-bar__track"><div class="skill-bar__fill"></div></div>
+            </div>
+            <div class="skill-bar reveal" data-value="90">
+              <div class="skill-bar__head"><span>自我驱动</span><span class="skill-bar__num">90</span></div>
+              <div class="skill-bar__track"><div class="skill-bar__fill"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 时间轴 ========== -->
+    <section class="section" id="timeline">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="section__index">03</span>
+          <h2 class="section__title">月度时间轴</h2>
+          <p class="section__desc">十二个月，四段节奏。滚动查看每个季度的关键节点。</p>
+        </header>
+
+        <ol class="timeline">
+          <li class="timeline__item reveal">
+            <span class="timeline__badge">Q1</span>
+            <div class="timeline__card">
+              <p class="timeline__period">1 月 — 3 月</p>
+              <h3>打基础：重构与提效</h3>
+              <p>主导内部组件库从 0 到 1 的重建，抽象出 26 个基础组件，接入 4 条业务线，重复代码减少约 40%。</p>
+              <ul class="tag-list">
+                <li>组件库</li><li>TypeScript</li><li>工程化</li>
+              </ul>
+            </div>
+          </li>
+          <li class="timeline__item reveal">
+            <span class="timeline__badge">Q2</span>
+            <div class="timeline__card">
+              <p class="timeline__period">4 月 — 6 月</p>
+              <h3>攻坚：性能治理专项</h3>
+              <p>负责首屏性能优化专项，通过分包、图片策略与接口合并，首屏加载从 3.4s 降至 1.2s，转化率提升 9%。</p>
+              <ul class="tag-list">
+                <li>性能优化</li><li>指标监控</li><li>数据驱动</li>
+              </ul>
+            </div>
+          </li>
+          <li class="timeline__item reveal">
+            <span class="timeline__badge">Q3</span>
+            <div class="timeline__card">
+              <p class="timeline__period">7 月 — 9 月</p>
+              <h3>带人：从做事到成事</h3>
+              <p>开始带 3 人小组，建立需求评审与技术方案模板，团队需求返工率从 22% 降到 8%，并完成 2 名新同学的培养。</p>
+              <ul class="tag-list">
+                <li>技术管理</li><li>流程建设</li><li>代码评审</li>
+              </ul>
+            </div>
+          </li>
+          <li class="timeline__item reveal">
+            <span class="timeline__badge">Q4</span>
+            <div class="timeline__card">
+              <p class="timeline__period">10 月 — 12 月</p>
+              <h3>收口：体系化沉淀</h3>
+              <p>输出《前端性能治理手册》与 18 篇技术文档，搭建团队知识库；年度目标全部达成，核心服务全年零 P0 故障。</p>
+              <ul class="tag-list">
+                <li>知识沉淀</li><li>稳定性</li><li>体系建设</li>
+              </ul>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ========== 重点项目 ========== -->
+    <section class="section" id="projects">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="section__index">04</span>
+          <h2 class="section__title">重点项目</h2>
+          <p class="section__desc">挑三个最有代表性的项目，讲清我做了什么、结果如何。</p>
+        </header>
+
+        <div class="project-grid">
+          <article class="project-card reveal" data-accent="violet">
+            <header class="project-card__head">
+              <h3>统一组件库重构</h3>
+              <span class="project-card__role">技术负责人</span>
+            </header>
+            <p class="project-card__desc">重建跨业务线组件库，建立主题变量与无障碍规范，支撑 4 条业务线并行开发。</p>
+            <div class="project-card__metrics">
+              <span><strong>26</strong> 个组件</span>
+              <span><strong>-40%</strong> 重复代码</span>
+            </div>
+            <div class="project-card__progress"><div class="project-card__progress-fill" data-value="100"></div></div>
+          </article>
+
+          <article class="project-card reveal" data-accent="pink">
+            <header class="project-card__head">
+              <h3>首屏性能治理</h3>
+              <span class="project-card__role">核心开发</span>
+            </header>
+            <p class="project-card__desc">从指标采集到优化落地全链路负责，建立性能看板与回归门禁，避免指标反弹。</p>
+            <div class="project-card__metrics">
+              <span><strong>3.4s → 1.2s</strong> 首屏</span>
+              <span><strong>+9%</strong> 转化</span>
+            </div>
+            <div class="project-card__progress"><div class="project-card__progress-fill" data-value="100"></div></div>
+          </article>
+
+          <article class="project-card reveal" data-accent="teal">
+            <header class="project-card__head">
+              <h3>团队知识库</h3>
+              <span class="project-card__role">发起人</span>
+            </header>
+            <p class="project-card__desc">沉淀踩坑记录、方案模板与上线清单，让新同学上手时间从 3 周缩短到 1 周。</p>
+            <div class="project-card__metrics">
+              <span><strong>18</strong> 篇文档</span>
+              <span><strong>-66%</strong> 上手周期</span>
+            </div>
+            <div class="project-card__progress"><div class="project-card__progress-fill" data-value="90"></div></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 成长曲线 ========== -->
+    <section class="section" id="growth">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="section__index">05</span>
+          <h2 class="section__title">成长曲线</h2>
+          <p class="section__desc">每月产出与学习投入的走势，越到年末越稳定。</p>
+        </header>
+
+        <figure class="chart-card chart-card--wide reveal">
+          <div class="chart-card__canvas" id="lineChart" role="img" aria-label="月度产出与学习投入折线图，产出从 1 月的 4 提升到 12 月的 11，学习投入维持在 6 到 9 之间"></div>
+          <figcaption class="chart-card__legend">
+            <span class="legend-item"><i class="legend-dot legend-dot--now"></i>月度产出（件）</span>
+            <span class="legend-item"><i class="legend-dot legend-dot--teal"></i>学习投入（小时/周）</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ========== 反思 ========== -->
+    <section class="section" id="reflect">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="section__index">06</span>
+          <h2 class="section__title">收获与不足</h2>
+          <p class="section__desc">做得好的继续保持，做得不够的写下来，明年改。</p>
+        </header>
+
+        <div class="reflect-grid">
+          <article class="reflect-card reflect-card--good reveal">
+            <h3>三个收获</h3>
+            <ul>
+              <li>从「把功能做完」转向「把问题解掉」，开始先问业务价值再定技术方案。</li>
+              <li>学会用数据说话：性能、返工率、上手周期，指标让沟通成本明显下降。</li>
+              <li>带人之后才发现，把方法讲清楚比自己做快更有价值。</li>
+            </ul>
+          </article>
+          <article class="reflect-card reflect-card--gap reveal">
+            <h3>三个不足</h3>
+            <ul>
+              <li>架构设计仍偏经验驱动，缺少系统性方法论，需要补架构与领域建模的知识。</li>
+              <li>跨部门沟通偏被动，需求变更时沟通滞后，明年要更早同步风险。</li>
+              <li>学习时间碎片化，缺少完整深度的训练，读完的多、练透的少。</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 明年目标 ========== -->
+    <section class="section section--last" id="goals">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="section__index">07</span>
+          <h2 class="section__title">2025 年度目标</h2>
+          <p class="section__desc">可衡量、有节奏、能落地。</p>
+        </header>
+
+        <div class="goal-grid">
+          <article class="goal-card reveal">
+            <p class="goal-card__num">01</p>
+            <h3>技术深度</h3>
+            <p>完成领域建模与架构设计系统学习，输出 1 份可复用的架构规范。</p>
+            <p class="goal-card__kpi">目标达成度 <strong>100%</strong></p>
+          </article>
+          <article class="goal-card reveal">
+            <p class="goal-card__num">02</p>
+            <h3>业务价值</h3>
+            <p>推动至少 2 项以指标为目标的优化专项，量化收益并复盘。</p>
+            <p class="goal-card__kpi">目标达成度 <strong>2 项专项</strong></p>
+          </article>
+          <article class="goal-card reveal">
+            <p class="goal-card__num">03</p>
+            <h3>团队影响</h3>
+            <p>完善团队技术分享机制，每月 1 次分享，培养 1 名可独立负责模块的同学。</p>
+            <p class="goal-card__kpi">目标达成度 <strong>12 次分享</strong></p>
+          </article>
+        </div>
+
+        <div class="closing reveal">
+          <p class="closing__text">
+            2024 年的关键词是<span class="text-gradient">「扎实」</span>。<br />
+            2025 年，我想把关键词改成<span class="text-gradient">「体系」</span>。
+          </p>
+          <p class="closing__sign">—— 李 明 · 2024.12.31</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p>个人年终总结 · 2024 年度</p>
+      <p>示例内容，可直接替换为你的真实数据</p>
+    </div>
+  </footer>
+
+  <button class="to-top" id="toTop" type="button" aria-label="回到顶部">↑</button>
+
+  <script src="script.js"></script>
+</body>
+</html>

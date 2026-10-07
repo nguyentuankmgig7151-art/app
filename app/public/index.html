@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>凭证管理系统</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="layout">
+    <!-- 左侧导航 -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">凭</div>
+        <div class="brand-text">
+          <strong>凭证管理系统</strong>
+          <span>Voucher Admin</span>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <button class="nav-item is-active" type="button" data-view="vouchers">
+          <span class="nav-icon">📑</span> 记账凭证
+        </button>
+        <button class="nav-item" type="button" data-view="categories">
+          <span class="nav-icon">🏷️</span> 分类标签
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-stat">
+          <span>凭证总数</span>
+          <strong id="sidebarVoucherCount">-</strong>
+        </div>
+        <div class="sidebar-stat">
+          <span>借方合计</span>
+          <strong id="sidebarTotalDebit">-</strong>
+        </div>
+        <div class="sidebar-stat">
+          <span>贷方合计</span>
+          <strong id="sidebarTotalCredit">-</strong>
+        </div>
+      </div>
+    </aside>
+
+    <!-- 主内容区 -->
+    <main class="main">
+      <!-- 凭证视图 -->
+      <section id="viewVouchers" class="view is-active">
+        <header class="page-header">
+          <div>
+            <h1>记账凭证</h1>
+            <p class="page-subtitle">录入、查询与管理会计期间内的记账凭证，系统自动校验借贷平衡。</p>
+          </div>
+          <button class="button button-primary" type="button" id="buttonCreateVoucher">＋ 新建凭证</button>
+        </header>
+
+        <div class="stats-row">
+          <div class="stat-card">
+            <span class="stat-label">凭证张数</span>
+            <strong class="stat-value" id="statVoucherCount">0</strong>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">借方发生额合计</span>
+            <strong class="stat-value stat-debit" id="statTotalDebit">¥0.00</strong>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">贷方发生额合计</span>
+            <strong class="stat-value stat-credit" id="statTotalCredit">¥0.00</strong>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">借贷平衡状态</span>
+            <strong class="stat-value" id="statBalance">—</strong>
+          </div>
+        </div>
+
+        <section class="panel">
+          <form class="filter-bar" id="filterForm">
+            <label class="field field-grow">
+              <span>关键字</span>
+              <input type="search" id="filterKeyword" placeholder="凭证摘要 / 科目 / 制单人 / 凭证号">
+            </label>
+            <label class="field">
+              <span>分类标签</span>
+              <select id="filterCategory">
+                <option value="">全部分类</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>起始日期</span>
+              <input type="date" id="filterStartDate">
+            </label>
+            <label class="field">
+              <span>截止日期</span>
+              <input type="date" id="filterEndDate">
+            </label>
+            <div class="filter-actions">
+              <button class="button button-primary" type="submit">查询</button>
+              <button class="button" type="button" id="buttonResetFilter">重置</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <h2>凭证列表</h2>
+            <span class="panel-hint" id="listSummary">—</span>
+          </div>
+
+          <div class="table-scroll">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th class="col-index">序号</th>
+                  <th>凭证字号</th>
+                  <th>记账日期</th>
+                  <th class="col-wide">摘要</th>
+                  <th>分类标签</th>
+                  <th class="col-number">分录数</th>
+                  <th class="col-number">借方合计</th>
+                  <th class="col-number">贷方合计</th>
+                  <th>制单人</th>
+                  <th class="col-actions">操作</th>
+                </tr>
+              </thead>
+              <tbody id="voucherTableBody">
+                <tr><td colspan="10" class="table-empty">正在加载…</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="pagination">
+            <span class="pagination-info" id="paginationInfo">—</span>
+            <div class="pagination-controls">
+              <label class="page-size">
+                每页
+                <select id="pageSizeSelect">
+                  <option value="5">5</option>
+                  <option value="10" selected>10</option>
+                  <option value="20">20</option>
+                  <option value="50">50</option>
+                </select>
+                条
+              </label>
+              <button class="button button-small" type="button" id="buttonPrevPage">上一页</button>
+              <span id="pageIndicator" class="page-indicator">1 / 1</span>
+              <button class="button button-small" type="button" id="buttonNextPage">下一页</button>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- 分类标签视图 -->
+      <section id="viewCategories" class="view">
+        <header class="page-header">
+          <div>
+            <h1>分类标签</h1>
+            <p class="page-subtitle">用标签对凭证归类，便于按业务类型统计与筛选。</p>
+          </div>
+        </header>
+
+        <section class="panel">
+          <div class="panel-head">
+            <h2>新增分类</h2>
+          </div>
+          <form class="inline-form" id="categoryForm">
+            <label class="field field-grow">
+              <span>分类名称</span>
+              <input type="text" id="categoryName" placeholder="例如：办公费用" maxlength="30" required>
+            </label>
+            <label class="field">
+              <span>标签颜色</span>
+              <input type="color" id="categoryColor" value="#4f7cff">
+            </label>
+            <button class="button button-primary" type="submit">添加分类</button>
+          </form>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <h2>分类列表</h2>
+            <span class="panel-hint" id="categorySummary">—</span>
+          </div>
+          <div class="table-scroll">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th class="col-index">序号</th>
+                  <th>分类名称</th>
+                  <th>标签预览</th>
+                  <th class="col-number">关联凭证数</th>
+                  <th class="col-actions">操作</th>
+                </tr>
+              </thead>
+              <tbody id="categoryTableBody">
+                <tr><td colspan="5" class="table-empty">正在加载…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <!-- 凭证编辑弹窗 -->
+  <div class="modal-mask" id="voucherModal" hidden>
+    <div class="modal modal-large" role="dialog" aria-modal="true" aria-labelledby="voucherModalTitle">
+      <header class="modal-head">
+        <h2 id="voucherModalTitle">新建凭证</h2>
+        <button class="icon-button" type="button" data-close-modal="voucherModal" aria-label="关闭">✕</button>
+      </header>
+
+      <form id="voucherForm" class="modal-body">
+        <input type="hidden" id="voucherId">
+
+        <div class="form-grid">
+          <label class="field">
+            <span>凭证字</span>
+            <input type="text" id="voucherWord" value="记" maxlength="4">
+          </label>
+          <label class="field">
+            <span>凭证号</span>
+            <input type="number" id="voucherNumber" min="1" step="1" placeholder="留空则自动编号">
+          </label>
+          <label class="field">
+            <span>记账日期</span>
+            <input type="date" id="voucherDate" required>
+          </label>
+          <label class="field">
+            <span>分类标签</span>
+            <select id="voucherCategory">
+              <option value="">未分类</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>附单据数</span>
+            <input type="number" id="voucherAttachmentCount" min="0" step="1" value="0">
+          </label>
+          <label class="field">
+            <span>制单人</span>
+            <input type="text" id="voucherPreparedBy" maxlength="20">
+          </label>
+          <label class="field">
+            <span>审核人</span>
+            <input type="text" id="voucherReviewedBy" maxlength="20">
+          </label>
+          <label class="field field-full">
+            <span>凭证摘要</span>
+            <input type="text" id="voucherSummary" maxlength="100" placeholder="本张凭证的业务说明">
+          </label>
+        </div>
+
+        <div class="entries-head">
+          <h3>会计分录</h3>
+          <button class="button button-small" type="button" id="buttonAddEntry">＋ 添加分录行</button>
+        </div>
+
+        <div class="table-scroll">
+          <table class="data-table entry-table">
+            <thead>
+              <tr>
+                <th class="col-index">#</th>
+                <th class="col-wide">摘要</th>
+                <th>科目编码</th>
+                <th>会计科目</th>
+                <th class="col-number">借方金额</th>
+                <th class="col-number">贷方金额</th>
+                <th class="col-actions"></th>
+              </tr>
+            </thead>
+            <tbody id="entryTableBody"></tbody>
+            <tfoot>
+              <tr class="entry-total-row">
+                <td colspan="4" class="align-right">合计</td>
+                <td class="col-number" id="entryDebitTotal">0.00</td>
+                <td class="col-number" id="entryCreditTotal">0.00</td>
+                <td></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <p class="balance-hint" id="balanceHint">借贷平衡</p>
+        <p class="form-error" id="voucherFormError" hidden></p>
+      </form>
+
+      <footer class="modal-foot">
+        <button class="button" type="button" data-close-modal="voucherModal">取消</button>
+        <button class="button button-primary" type="button" id="buttonSaveVoucher">保存凭证</button>
+      </footer>
+    </div>
+  </div>
+
+  <!-- 凭证详情弹窗 -->
+  <div class="modal-mask" id="detailModal" hidden>
+    <div class="modal modal-large" role="dialog" aria-modal="true" aria-labelledby="detailModalTitle">
+      <header class="modal-head">
+        <h2 id="detailModalTitle">凭证详情</h2>
+        <button class="icon-button" type="button" data-close-modal="detailModal" aria-label="关闭">✕</button>
+      </header>
+      <div class="modal-body" id="detailBody"></div>
+      <footer class="modal-foot">
+        <button class="button" type="button" data-close-modal="detailModal">关闭</button>
+        <button class="button button-primary" type="button" id="buttonDetailEdit">编辑该凭证</button>
+      </footer>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
